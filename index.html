@@ -12,7 +12,7 @@
     </head>
 
 
-    <nav>
+    <nav class="sticky-top" >
         <div class="logo">
             <a class="logo" href="index.html">Kat'Pizza</a>
         </div>
@@ -45,7 +45,7 @@
 
             <div style="margin-top: 1rem" class="row">
                 <div id="cart-wrap" class="col-lg-9 d-flex justify-content-center align-items-center">
-                    <div>
+                    <div  >
                         <div x-show="false" >
                             <center>
                                 <p id="cart-placeholder">Your Pizza Cart Is Empty</p>
@@ -54,41 +54,51 @@
                         </div>
 
 
-                        <template x-for="cartPizza in userCart" >
+                            <table>
+                                <template style="margin-bottom: 2rem;" x-for="cartPizza in userCart.pizzas" > 
+                                <tr  >
+                                    <td style="width:18%" >
+                                        <center>
 
-                            <div style="margin-bottom: 1rem" class="row">
-                                <div class="col-3">
-                                    <center>
+                                            <img  style="width:70%;filter: drop-shadow(8px 15px 4px rgba(86, 86, 86, 0.37));" class="img-fluid" src="https://www.freepnglogos.com/uploads/pizza-png/derwent-park-pizza-5.png" alt="" />
+                                        </center>
 
-                                        <img style="width:80%" class="img-fluid" src="https://www.freepnglogos.com/uploads/pizza-png/derwent-park-pizza-5.png" alt="" />
-                                    </center>
-                                </div>
-                                <div class="col-7">
-                                    <h4 x-text="cartPizza.flavour" ></h4>
-                                    <p style="color: rgb(63, 62, 62)">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, minus.</p>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center align-items-center">
-                                    <button @click="removeFromCart(cartPizza.id)" style="border: none; background: none" class="btn btn-outline-secondary btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-left-fill text-dark" viewBox="0 0 16 16">
-                                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                                        </svg>
-                                    </button>
-    
-                                    <span class="quantity" x-text="cartPizza.qty" > </span>
-    
-                                    <button @click="addToCart(cartPizza.id)" style="border: none; background: none" class="btn btn-outline-secondary btn-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-right-fill text-dark" viewBox="0 0 16 16">
-                                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
+                                    </td>
+                                    <td style="width:30%">
+                                        <h4 x-text="cartPizza.flavour" ></h4>
+                                        <p style="color: rgb(63, 62, 62);margin: 0;" x-text="cartPizza.type" ></p>
+                                        <p style="color: rgb(63, 62, 62);margin: 0;" >R <span x-text="cartPizza.price" ></span></p>
 
-                        </template>
+                                    </td>
+                                    <td style="width:15%" >
+                                        <button @click="removeFromCart(cartPizza.id)" style="border: none; background: none" class="btn btn-outline-secondary btn-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-left-fill text-dark" viewBox="0 0 16 16">
+                                                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                            </svg>
+                                        </button>
+        
+                                        <span class="quantity" x-text="cartPizza.qty" > </span>
+        
+                                        <button @click="addToCart(cartPizza.id)" style="border: none; background: none" class="btn btn-outline-secondary btn-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-right-fill text-dark" viewBox="0 0 16 16">
+                                                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                    <td style="width:15%" >
+                                        <p>R <span x-text="(Number(cartPizza.price*cartPizza.qty)).toFixed(2)" ></span></p>
+                                    </td>
+                                </tr>
+                            </template>
 
+                            </table>
+
+                        
                         
                     </div>
                 </div>
+
+
 
                 <div class="col-lg-3">
                     <div class="order-wrapper">
@@ -109,7 +119,7 @@
                         <br />
                         <p style="color: rgb(70, 70, 70)">
                             Total &nbsp;
-                            <span style="font-size: 1.5rem; color: rgb(58, 58, 58); margin-left: 0.2rem"> R <span style="font-size: 2rem; color: rgb(25, 25, 25)" > </span></span>
+                            <span style="font-size: 1.5rem; color: rgb(58, 58, 58); margin-left: 0.2rem"> R <span style="font-size: 2rem; color: rgb(25, 25, 25)" x-text="(userCart.total).toFixed(2)" > </span></span>
                         </p>
                         <br />
 
@@ -120,6 +130,10 @@
                         
                     </div>
                 </div>
+
+
+
+
             </div>
         </section>
 

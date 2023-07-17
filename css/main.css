@@ -16,7 +16,7 @@
     background-color: rgb(253, 193, 102);
     min-height: 10rem;
     width:100%;
-    padding:2rem
+    padding:2rem 8rem;
 }
 
 .order-wrapper{
@@ -133,3 +133,9 @@ nav {
         min-height: 40vh;
     }
 }
+
+td{
+    border-bottom: 1px rgba(0, 0, 0, 0.305) solid;
+    height: 8rem;
+}
+

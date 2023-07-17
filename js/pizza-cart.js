@@ -1,38 +1,47 @@
 function pizzaCartLogic() {
     return {
+        displayData() {
+            axios.get(`https://pizza-api.projectcodex.net/api/pizza-cart/${this.cartCode}/get`).then((result) => {
+                this.userCart = result.data;
+            });
+        },
         cartCode: "",
         userCart: [],
+        pizzaList: [],
+        viewCart: false,
+
         addToCart(pizzaID) {
             axios
                 .post("https://pizza-api.projectcodex.net/api/pizza-cart/add", {
                     cart_code: this.cartCode,
                     pizza_id: pizzaID,
                 })
-                .then(function (response) {
-                    console.log(response);
+                .then(() => {
+                    this.displayData();
+                })
+                .catch((error) => {
+                    console.error("Error adding pizza to cart:", error);
                 });
-
-                console.log(this.userCart)
         },
+
         removeFromCart(pizzaID) {
             axios
                 .post("https://pizza-api.projectcodex.net/api/pizza-cart/remove", {
                     cart_code: this.cartCode,
                     pizza_id: pizzaID,
                 })
-                .then(function (response) {
-                    console.log(response);
+                .then(() => {
+                    this.displayData();
+                })
+                .catch((error) => {
+                    console.error("Error adding pizza to cart:", error);
                 });
-
-                console.log(this.userCart)
         },
-        createCartCode() {},
-        viewCart: false,
+
         clickViewCart() {
             this.viewCart = !this.viewCart;
         },
 
-        pizzaList: [],
         init() {
             axios.get("https://pizza-api.projectcodex.net/api/pizzas").then((result) => {
                 this.pizzaList = result.data.pizzas;
@@ -47,11 +56,7 @@ function pizzaCartLogic() {
                 });
             }
 
-            axios.get(`https://pizza-api.projectcodex.net/api/pizza-cart/${this.cartCode}/get`).then((result) => {
-                // this.pizzaList = result.data.pizzas;
-                console.log("MY CART ITEMS ", result.data.pizzas);
-                this.userCart = result.data.pizzas;
-            });
+            this.displayData();
         },
     };
 }
@@ -82,7 +87,7 @@ content-type: application/json
 
 
 ### Remove Pizza from Cart
-POST https://pizza-api.projectcodex.net/api/pizza-cart/remove
+* POST https://pizza-api.projectcodex.net/api/pizza-cart/remove
 content-type: application/json 
 
 {
