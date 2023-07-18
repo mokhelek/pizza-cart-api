@@ -47,7 +47,8 @@ body{
 
 .payment{
     background-color: rgb(211, 164, 255);
-    min-height: 8rem;
+    min-height: 6.5rem;
+    padding: 0rem 1rem ;
 }
 
 #payment-box{
@@ -56,10 +57,11 @@ body{
     background-color: rgb(221, 221, 221);
     border: 1px gray solid;
     padding:0.4rem;
+    width: 100%;
 }
 
 .payment-feedback{
-    width:95%;
+    width:90%;
     border-radius: 10px;
     background-color: rgba(58, 255, 107, 0.363);
     margin-bottom: 0.6rem;

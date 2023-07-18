@@ -5,11 +5,16 @@ function pizzaCartLogic() {
                 this.userCart = result.data;
             });
         },
+        paymentAmount: "",
+        paymentFeedback: "",
         cartCode: "",
         userCart: [],
         pizzaList: [],
         viewCart: false,
-
+        checkoutClicked:false,
+        clickCheckout(){
+            this.checkoutClicked = !this.checkoutClicked ;
+        },
         addToCart(pizzaID) {
             axios
                 .post("https://pizza-api.projectcodex.net/api/pizza-cart/add", {
@@ -40,6 +45,16 @@ function pizzaCartLogic() {
 
         clickViewCart() {
             this.viewCart = !this.viewCart;
+        },
+        submitPayment() {
+            axios
+                .post("https://pizza-api.projectcodex.net/api/pizza-cart/pay", {
+                    cart_code: this.cartCode,
+                    amount: this.paymentAmount,
+                })
+                .then(() => {
+                    this.displayData();
+                });
         },
 
         init() {
@@ -97,7 +112,7 @@ content-type: application/json
 
 
 ### Pay for the cart 
-POST https://pizza-api.projectcodex.net/api/pizza-cart/pay
+* POST https://pizza-api.projectcodex.net/api/pizza-cart/pay
 content-type: application/json 
 
 {
