@@ -21,6 +21,7 @@ function pizzaCartLogic() {
         checkoutClicked:false,
         clickCheckout(){
             this.checkoutClicked = !this.checkoutClicked ;
+            this.orderSummery()
         },
         addToCart(pizzaID) {
             axios
@@ -91,7 +92,16 @@ function pizzaCartLogic() {
             }
 
             this.displayData();
+            
         },
+
+        orderSummery(){
+            let quantity = 0 ;
+            for( i in this.userCart.pizzas){
+                quantity +=  this.userCart.pizzas[i].qty;
+            }
+            return quantity;
+        }
     };
 }
 
