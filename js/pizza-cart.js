@@ -5,6 +5,13 @@ function pizzaCartLogic() {
                 this.userCart = result.data;
             });
         },
+        newCart(){
+            axios.get("https://pizza-api.projectcodex.net/api/pizza-cart/create?username=mokhelek").then((result) => {
+                localStorage["cartCode"] = result.data.cart_code;
+                this.cartCode = JSON.parse(localStorage["cartCode"]);
+
+            });
+        },
         paymentAmount: "",
         paymentFeedback: "",
         cartCode: "",
@@ -24,9 +31,7 @@ function pizzaCartLogic() {
                 .then(() => {
                     this.displayData();
                 })
-                .catch((error) => {
-                    console.error("Error adding pizza to cart:", error);
-                });
+               
         },
 
         removeFromCart(pizzaID) {
@@ -52,8 +57,25 @@ function pizzaCartLogic() {
                     cart_code: this.cartCode,
                     amount: this.paymentAmount,
                 })
-                .then(() => {
-                    this.displayData();
+                .then((response) => {
+                    // this.displayData();
+                    console.log(response.data)
+
+                    if(response.data.status == "success"){
+                        this.paymentFeedback = "Payment successful"
+                       this.newCart()
+
+                       setTimeout(()=>{
+                        location.reload()
+                       },3000)
+
+                    }else{
+                        this.paymentFeedback = "Insufficient payment amount"
+
+                    }
+
+
+
                 });
         },
 
@@ -65,10 +87,7 @@ function pizzaCartLogic() {
             if (localStorage["cartCode"]) {
                 this.cartCode = localStorage.getItem("cartCode");
             } else {
-                axios.get("https://pizza-api.projectcodex.net/api/pizza-cart/create?username=mokhelek").then((result) => {
-                    localStorage["cartCode"] = result.data.cart_code;
-                    this.cartCode = JSON.parse(localStorage["cartCode"]);
-                });
+                this.newCart();
             }
 
             this.displayData();

@@ -42,7 +42,7 @@
             <div style="margin-top: 1rem" class="row">
                 <div id="cart-wrap" class="col-lg-9 d-flex justify-content-center align-items-center">
                     <div>
-                        <div x-show="false">
+                        <div x-show="userCart.pizzas.length == 0">
                             <center>
                                 <p id="cart-placeholder">Your Pizza Cart Is Empty</p>
                                 <a href="#buy-pizza" class="btn btn-dark buy-pizza">Buy Pizza</a>
@@ -105,7 +105,7 @@
                         <br />
                         <p style="color: rgb(70, 70, 70)">
                             Total &nbsp;
-                            <span style="font-size: 1.5rem; color: rgb(58, 58, 58); margin-left: 0.2rem"> R <span style="font-size: 2rem; color: rgb(25, 25, 25)" x-text="(userCart.total).toFixed(2)"> </span></span>
+                            <span style="font-size: 1.5rem; color: rgb(58, 58, 58); margin-left: 0.2rem"> R <span style="font-size: 2rem; color: rgb(25, 25, 25)" x-text="( (userCart.total).toFixed(2) )"> </span></span>
                         </p>
 
                         <center>
@@ -136,12 +136,18 @@
         </section>
 
         <section class="container">
+            <br>
+            <center>
+                <h3 id="buy-pizza" > ~ Our Offerings ~ </h3>
+                <p style="color: gray;font-size: 0.9rem;" >Lorem ipsum dolor sit amet consectetur, adipisicing elit. </p>
+            </center>
+
             <div class="row">
                 <template x-for="pizza in pizzaList">
                     <div style="margin-top: 1rem" class="col-md-4">
                         <div class="card card-body">
                             <div class="col img-wrapper">
-                                <!-- <img class="img-fluid" src="images/pngtree-modern-traditional-food-sasami-pizza-3d-model-png-image_6651528.png" alt="" /> -->
+                                <img class="img-fluid" src="https://www.freepnglogos.com/uploads/pizza-png/derwent-park-pizza-5.png" alt="" />
                             </div>
                             <h5 x-text="pizza.flavour"></h5>
                             <h6 x-text="pizza.price"></h6>
