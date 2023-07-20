@@ -75,11 +75,23 @@ body{
     letter-spacing: 0.7rem;
 } 
 
+.heading{
+    color: #1f1f1f !important;
+    font-size: 2rem;
+    font-family: 'Nanum Myeongjo', serif;
+    letter-spacing: 0.4rem;
+    margin-bottom: 0.7rem;
+}
 
 
 
 nav {
-    background-color: #f2f2f2;
+    background-color: #f2f2f262;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px rgba(128, 128, 128, 0.468) solid;
+
+    
     height: 75px;
     display: flex;
     justify-content: space-between;
@@ -88,6 +100,15 @@ nav {
     padding: 0 20px;
   }
   
+
+
+  .navbar {
+    /* background-color: #1a2c2f23; */
+
+   
+}
+
+
 .cart{
     position: absolute;
     right: 0;
