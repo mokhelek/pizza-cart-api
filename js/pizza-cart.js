@@ -5,23 +5,23 @@ function pizzaCartLogic() {
                 this.userCart = result.data;
             });
         },
-        newCart(){
+        newCart() {
             axios.get("https://pizza-api.projectcodex.net/api/pizza-cart/create?username=mokhelek").then((result) => {
                 localStorage["cartCode"] = result.data.cart_code;
                 this.cartCode = JSON.parse(localStorage["cartCode"]);
-
             });
         },
         paymentAmount: "",
         paymentFeedback: "",
         cartCode: "",
         userCart: [],
-        pizzaList: [],
+        pizzaList: [], // ? I can filter this
+        favoritePizzas:[],
         viewCart: false,
-        checkoutClicked:false,
-        clickCheckout(){
-            this.checkoutClicked = !this.checkoutClicked ;
-            this.orderSummery()
+        checkoutClicked: false,
+        clickCheckout() {
+            this.checkoutClicked = !this.checkoutClicked;
+            this.orderSummery();
         },
         addToCart(pizzaID) {
             axios
@@ -31,8 +31,23 @@ function pizzaCartLogic() {
                 })
                 .then(() => {
                     this.displayData();
-                })
-               
+                });
+        },
+
+        addToFavorites(pizzaID){
+            axios.post("https://pizza-api.projectcodex.net/api/pizzas/featured", {
+                "username" : "mokhelek",
+                "pizza_id" : pizzaID
+            })
+            .then(() => {
+                this.displayFavoritePizzas();
+            });
+        },
+        displayFavoritePizzas(){
+            axios.get(`https://pizza-api.projectcodex.net/api/pizzas/featured?username=mokhelek`).then((result) => {
+                this.favoritePizzas = result.data ;
+                console.log("Featured Pizzas  ",result.data)
+            });
         },
 
         removeFromCart(pizzaID) {
@@ -60,23 +75,18 @@ function pizzaCartLogic() {
                 })
                 .then((response) => {
                     // this.displayData();
-                    console.log(response.data)
+                    console.log(response.data);
 
-                    if(response.data.status == "success"){
-                        this.paymentFeedback = "Payment successful"
-                       this.newCart()
+                    if (response.data.status == "success") {
+                        this.paymentFeedback = "Payment successful";
+                        this.newCart();
 
-                       setTimeout(()=>{
-                        location.reload()
-                       },3000)
-
-                    }else{
-                        this.paymentFeedback = "Insufficient payment amount"
-
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
+                    } else {
+                        this.paymentFeedback = "Insufficient payment amount";
                     }
-
-
-
                 });
         },
 
@@ -92,16 +102,21 @@ function pizzaCartLogic() {
             }
 
             this.displayData();
-            
+            this.displayFavoritePizzas();
+            console.log("FAVORITE PIZZAS ",this.favoritePizzas)
         },
 
-        orderSummery(){
-            let quantity = 0 ;
-            for( i in this.userCart.pizzas){
-                quantity +=  this.userCart.pizzas[i].qty;
+        orderSummery() {
+            let quantity = 0;
+            for (i in this.userCart.pizzas) {
+                quantity += this.userCart.pizzas[i].qty;
             }
             return quantity;
-        }
+        },
+        filterPizzas(type) {
+            // this.pizzaList = this.pizzaList.filter((pizza) => type == "" || pizza.type == type);
+            console.log(this.pizzaList)
+        },
     };
 }
 

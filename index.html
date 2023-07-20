@@ -23,7 +23,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart3 text-dark" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                         </svg>
-                        <span class="position-absolute top-0 start-50 badge rounded-pill bg-dark cartCounterLg" style="font-size: 0.65rem; margin-left: 0.6rem" x-text="orderSummery()" > </span>
+                        <span class="position-absolute top-0 start-50 badge rounded-pill bg-dark cartCounterLg" style="font-size: 0.65rem; margin-left: 0.6rem" x-text="orderSummery()"> </span>
                     </div>
                 </button>
             </a>
@@ -103,7 +103,7 @@
                             </li>
                         </ul> -->
                         <!-- <h6 x-text="userCart.status" ></h6> -->
-                        
+
                         <br />
                         <p style="color: rgb(70, 70, 70)">
                             Total &nbsp;
@@ -138,12 +138,48 @@
         </section>
 
         <section class="container">
-            <br>
-            <center>
-                <h3 id="buy-pizza" > ~ Our Offerings ~ </h3>
-                <p style="color: gray;font-size: 0.9rem;" >Lorem ipsum dolor sit amet consectetur, adipisicing elit. </p>
-            </center>
+          
+            <!-- <br />
+            <select id="dropDown" class="type-filter-dropdown">
+                <option value=""> All Pizzas</option>
+                <option value="meaty">Meaty</option>
+                <option value="chicken">Chicken</option>
+                <option value="veggie">Veggie</option>
+              
+            </select>
+            <br /> -->
+            <br><br>
+            <div class="row">
+                <template x-for="favPizza in favoritePizzas.pizzas" >
+                    <div class="col-md-4">
+                        <div class="card card-body">
+                            <div class="col img-wrapper">
+                                <img class="img-fluid" src="https://www.freepnglogos.com/uploads/pizza-png/derwent-park-pizza-5.png" alt="" />
+                            </div>
+                            <h5 x-text="favPizza.flavour"></h5>
+                            <center>
+                                <p style="color: gray"><span x-text="favPizza.type"></span> &bull; <span x-text="favPizza.size"></span></p>
+                            </center>
+                            <h6>R <span x-text="favPizza.price"></span></h6>
 
+                                <button @click="addToCart(favPizza.id)" class="btn btn-success cart-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                    </svg>
+                                    &nbsp; Add To Cart
+                                </button>
+                           
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <br />
+            <center>
+                <h3 id="buy-pizza">~ Our Offerings ~</h3>
+                <p style="color: gray; font-size: 0.9rem">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+            </center>
             <div class="row">
                 <template x-for="pizza in pizzaList">
                     <div style="margin-top: 1rem" class="col-md-4">
@@ -152,18 +188,30 @@
                                 <img class="img-fluid" src="https://www.freepnglogos.com/uploads/pizza-png/derwent-park-pizza-5.png" alt="" />
                             </div>
                             <h5 x-text="pizza.flavour"></h5>
-                            <h6 x-text="pizza.price"></h6>
                             <center>
-                                <p style="color: gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum omnis voluptatibus</p>
+                                <p style="color: gray"><span x-text="pizza.type"></span> &bull; <span x-text="pizza.size"></span></p>
                             </center>
+                            <h6>R <span x-text="pizza.price"></span></h6>
 
-                            <button @click="addToCart(pizza.id)" class="btn btn-success cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
-                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
-                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                </svg>
-                                &nbsp; Add To Cart
-                            </button>
+                            <div class="d-flex">
+
+                                <button @click="addToCart(pizza.id)" class="btn btn-success cart-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                    </svg>
+                                    &nbsp; Add To Cart
+                                </button>
+                                &nbsp;&nbsp;
+                                <button @click="addToFavorites(pizza.id)" class="btn btn-outline-danger cart-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                      </svg>
+                                    
+                                </button>
+                            </div>
+
+
                         </div>
                     </div>
                 </template>
