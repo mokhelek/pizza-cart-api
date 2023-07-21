@@ -5,6 +5,11 @@ function pizzaCartLogic() {
                 this.userCart = result.data;
             });
         },
+        displayPizzas(){
+            axios.get("https://pizza-api.projectcodex.net/api/pizzas").then((result) => {
+                this.pizzaList = result.data.pizzas;
+            });
+        },
         newCart() {
             axios.get("https://pizza-api.projectcodex.net/api/pizza-cart/create?username=mokhelek").then((result) => {
                 localStorage["cartCode"] = result.data.cart_code;
@@ -16,7 +21,7 @@ function pizzaCartLogic() {
         cartCode: "",
         userCart: [],
         pizzaList: [], // ? I can filter this
-        favoritePizzas:[],
+        favoritePizzas: [],
         viewCart: false,
         checkoutClicked: false,
         clickCheckout() {
@@ -34,18 +39,19 @@ function pizzaCartLogic() {
                 });
         },
 
-        addToFavorites(pizzaID){
-            axios.post("https://pizza-api.projectcodex.net/api/pizzas/featured", {
-                "username" : "mokhelek",
-                "pizza_id" : pizzaID
-            })
-            .then(() => {
-                this.displayFavoritePizzas();
-            });
+        addToFavorites(pizzaID) {
+            axios
+                .post("https://pizza-api.projectcodex.net/api/pizzas/featured", {
+                    username: "mokhelek",
+                    pizza_id: pizzaID,
+                })
+                .then(() => {
+                    this.displayFavoritePizzas();
+                });
         },
-        displayFavoritePizzas(){
+        displayFavoritePizzas() {
             axios.get(`https://pizza-api.projectcodex.net/api/pizzas/featured?username=mokhelek`).then((result) => {
-                this.favoritePizzas = result.data ;
+                this.favoritePizzas = result.data;
             });
         },
 
@@ -90,9 +96,7 @@ function pizzaCartLogic() {
         },
 
         init() {
-            axios.get("https://pizza-api.projectcodex.net/api/pizzas").then((result) => {
-                this.pizzaList = result.data.pizzas;
-            });
+            this.displayPizzas()
 
             if (localStorage["cartCode"]) {
                 this.cartCode = localStorage.getItem("cartCode");
@@ -112,8 +116,12 @@ function pizzaCartLogic() {
             return quantity;
         },
         filterPizzas(type) {
-            this.pizzaList = this.pizzaList.filter((pizza) => type == "" || pizza.type == type);
-         
+            this.displayPizzas()
+
+            setTimeout(()=>{
+                this.pizzaList = this.pizzaList.filter((pizza) => pizza.type == type);
+            },1000)
+
         },
     };
 }
