@@ -46,7 +46,6 @@ function pizzaCartLogic() {
         displayFavoritePizzas(){
             axios.get(`https://pizza-api.projectcodex.net/api/pizzas/featured?username=mokhelek`).then((result) => {
                 this.favoritePizzas = result.data ;
-                console.log("Featured Pizzas  ",result.data)
             });
         },
 
@@ -103,7 +102,6 @@ function pizzaCartLogic() {
 
             this.displayData();
             this.displayFavoritePizzas();
-            console.log("FAVORITE PIZZAS ",this.favoritePizzas)
         },
 
         orderSummery() {
@@ -114,8 +112,8 @@ function pizzaCartLogic() {
             return quantity;
         },
         filterPizzas(type) {
-            // this.pizzaList = this.pizzaList.filter((pizza) => type == "" || pizza.type == type);
-            console.log(this.pizzaList)
+            this.pizzaList = this.pizzaList.filter((pizza) => type == "" || pizza.type == type);
+         
         },
     };
 }

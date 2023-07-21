@@ -101,12 +101,13 @@ nav {
   }
   
 
-
-  .navbar {
-    /* background-color: #1a2c2f23; */
-
-   
-}
+  #dropDown{
+    padding: 0.3rem;
+    border: none;
+    border-radius: 0;
+    background:none;
+    font-size: 1.2rem;
+  }
 
 
 .cart{
